@@ -1,0 +1,43 @@
+package com.app.apptodo
+
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.app.apptodo.apptodo.FragmentInput
+import com.app.apptodo.apptodo.FragmentTask
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        fun replaceFragmentTask(fragmentTask: FragmentTask) {
+            supportFragmentManager
+                .beginTransaction().replace(
+                    R.id.fragment_container,
+                    FragmentTask()
+                ).addToBackStack(null).commit()
+        }
+
+        fun replaceFragmentInput() {
+            supportFragmentManager
+                .beginTransaction().replace(
+                    R.id.fragment_container,
+                    FragmentInput()
+                ).commit()
+        }
+
+        if(savedInstanceState == null) {
+            replaceFragmentTask(fragmentTask = FragmentTask())
+        }
+
+    }
+}
