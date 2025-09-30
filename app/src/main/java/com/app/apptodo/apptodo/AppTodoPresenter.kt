@@ -11,7 +11,7 @@ class AppTodoPresenter (
         viw.returnTasks(tasks)
     }
 
-    override fun addTask(task: String) {
+    override fun addTask(task: Task) {
         repository.addItem(task)
         loadTasks()
     }

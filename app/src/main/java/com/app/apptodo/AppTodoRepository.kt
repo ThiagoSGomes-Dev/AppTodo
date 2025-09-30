@@ -1,22 +1,26 @@
 package com.app.apptodo
 
+import com.app.apptodo.apptodo.Task
+import java.io.Serial
+
+
 interface AppTodoRepository {
-    fun addItem(item: String)
-    fun getList(): MutableList<String>
+    fun addItem(item: Task)
+    fun getList(): MutableList<Task>
 }
 
 class AppTodoRepositoryImplementation: AppTodoRepository {
     val data = Data.list
 
-    override fun addItem(item: String) {
+    override fun addItem(item: Task) {
         data.add(item)
     }
 
-    override fun getList(): MutableList<String> {
+    override fun getList(): MutableList<Task> {
         return data
     }
 }
 
-object Data {
-    val list = mutableListOf<String>()
+data object Data {
+    var list = mutableListOf<Task>()
 }

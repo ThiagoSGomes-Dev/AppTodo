@@ -53,9 +53,8 @@ class FragmentTask: Fragment(), AppTodoContract.View {
 
     }
 
-    override fun returnTasks(tasks: MutableList<String>) {
+    override fun returnTasks(tasks: MutableList<Task>) {
         adaptor.updateData(tasks)
-        adaptor.notifyDataSetChanged()
         Log.i("returnTasks", "$tasks")
     }
 

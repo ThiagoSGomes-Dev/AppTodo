@@ -1,7 +1,7 @@
 package com.app.apptodo.apptodo
 
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import com.app.apptodo.AppTodoRepositoryImplementation
 import com.app.apptodo.R
 import com.app.apptodo.databinding.FragmentInputBinding
+import com.google.gson.Gson
+import java.util.Objects
 
 class FragmentInput: Fragment(), AppTodoContract.View {
 
@@ -40,8 +42,10 @@ class FragmentInput: Fragment(), AppTodoContract.View {
 
         with (binding) {
             btnButton.setOnClickListener {
-                val task = binding.inputText.text.toString()
+                val task = Task(inputText.text.toString())
+
                 presenter.addTask(task)
+
 
                 Toast.makeText(context,"Task created!", Toast.LENGTH_SHORT).show()
 
@@ -62,7 +66,7 @@ class FragmentInput: Fragment(), AppTodoContract.View {
         _binding = null
     }
 
-    override fun returnTasks(tasks: MutableList<String>) {
+    override fun returnTasks(tasks: MutableList<Task>) {
         adaptor.updateData(tasks)
     }
 

@@ -1,45 +1,48 @@
 package com.app.apptodo.dda
 
-fun main() {
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 
-    var done = mutableListOf<String>()
+data class Model (var value: String = "")
 
-    fun upsDate(newDone: MutableList<String>) {
-        done = newDone
+fun processModel(model: Model) {
+    println("${model.value}")
+}
+
+data class Person(
+    @SerializedName("first_name") val firstName: String,
+    @SerializedName("last_name") val lastName: String,
+    val age: Int
+)
+
+data object Open {
+
+    val model = Model()
+    var list = mutableListOf<Person>(
+        Person(
+            "Thiago",
+            "Gomes",
+            25
+        ),
+        Person(
+            "Jessica",
+            "Gomes",
+            28
+        )
+    )
+
+    fun listString() {
+        list.map { it.toString() }
     }
 
+}
 
-    fun returnList(dones : MutableList<String>) {
-        upsDate(dones)
+fun demo(x: Any) {
+    if (x is String) {
+        print(x.length) // x is automatically cast to String
     }
+}
 
-
-    val a = true
-    val b = false
-    val c = true
-    val d = false
-
-    var num1 = 1
-    var num2 = 3
-
-    val num = 0
-
-    // Operdor E (&&)
-    val resulte1 = d && b
-    val resulte2 = b && d
-
-    println(resulte1)
-    println(resulte2)
-
-    val result = resulte1 || resulte2
-
-    println(result)
-
-    println("Números")
-
-    // num1 = num1 + num2
-    // println(num1)
-    num1 += num2
-    println(num1)
+fun main(){
 
 }
