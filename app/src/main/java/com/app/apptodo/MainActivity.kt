@@ -5,39 +5,30 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.app.apptodo.apptodo.FragmentInput
-import com.app.apptodo.apptodo.FragmentTask
+import com.app.apptodo.apptodo.addtask.TodoAddTaskFragment
+import com.app.apptodo.apptodo.list.TodoListFragment
+import com.app.apptodo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        fun replaceFragmentTask(fragmentTask: FragmentTask) {
+        if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction().replace(
                     R.id.fragment_container,
-                    FragmentTask()
+                    TodoListFragment()
                 ).addToBackStack(null).commit()
         }
-
-        fun replaceFragmentInput() {
-            supportFragmentManager
-                .beginTransaction().replace(
-                    R.id.fragment_container,
-                    FragmentInput()
-                ).commit()
-        }
-
-        if(savedInstanceState == null) {
-            replaceFragmentTask(fragmentTask = FragmentTask())
-        }
-
     }
 }

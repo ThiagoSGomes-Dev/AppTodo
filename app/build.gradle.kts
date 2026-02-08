@@ -1,6 +1,9 @@
+import com.android.build.gradle.internal.utils.isKspPluginApplied
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -40,8 +43,10 @@ android {
 }
 
 dependencies {
+    //Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
 
-    implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

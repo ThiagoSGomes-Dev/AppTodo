@@ -1,21 +1,23 @@
-package com.app.apptodo.apptodo
+package com.app.apptodo.apptodo.addtask
 
 import android.os.Bundle
-import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.app.apptodo.AppTodoRepositoryImplementation
-import com.app.apptodo.R
+import com.app.apptodo.data.Task
+import com.app.apptodo.data.AppTodoRepositoryImplementation
+import com.app.apptodo.apptodo.list.TodoListAdapter
 import com.app.apptodo.databinding.FragmentInputBinding
-import com.google.gson.Gson
-import java.util.Objects
 
-class FragmentInput: Fragment(), AppTodoContract.View {
+class TodoAddTaskFragment: Fragment(), TodoAddTaskContract.View {
 
-    private lateinit var adaptor : AppTodoAdaptor
+    private val presenter: TodoAddTaskContract.Presenter by lazy {
+        TodoAddTaskPresenter(this, AppTodoRepositoryImplementation())
+    }
+    private lateinit var adapter : TodoListAdapter
     private var _binding : FragmentInputBinding? = null
     private val binding get() = _binding!!
 
@@ -36,25 +38,16 @@ class FragmentInput: Fragment(), AppTodoContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val presenter = AppTodoPresenter(this, AppTodoRepositoryImplementation())
-
-        adaptor = AppTodoAdaptor(requireContext(), mutableListOf())
+        adapter = TodoListAdapter()
 
         with (binding) {
             btnButton.setOnClickListener {
-                val task = Task(inputText.text.toString())
+                val title = inputText.text.toString()
+                val task = Task(name = title)
+                presenter.onAddTaskClicked(task)
 
-                presenter.addTask(task)
-
-
+                Log.d("Click", "${task.id}, ${task.name}")
                 Toast.makeText(context,"Task created!", Toast.LENGTH_SHORT).show()
-
-                // PopBackStack
-                parentFragmentManager.beginTransaction().replace(
-                    R.id.fragment_container,
-                    FragmentTask()
-                ).commit()
-
             }
         }
     }
@@ -66,9 +59,11 @@ class FragmentInput: Fragment(), AppTodoContract.View {
         _binding = null
     }
 
-    override fun returnTasks(tasks: MutableList<Task>) {
-        adaptor.updateData(tasks)
+    override fun navigateToListFragment() {
+        parentFragmentManager.popBackStack()
     }
 
-
+    override fun showAddTask(task: Task) {
+        adapter.addTask(task)
+    }
 }
