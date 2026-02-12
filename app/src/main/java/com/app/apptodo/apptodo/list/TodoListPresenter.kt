@@ -7,10 +7,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class TodoListPresenter(
     private val view: TodoListContract.View?,
-    private val repository: ListRepository
+    private val repository: ListRepository,
+    private val disposable: CompositeDisposable
 ): TodoListContract.Presenter {
-
-    private val disposable = CompositeDisposable()
 
     override fun onClickedEditView(taskId: Int) {
             view?.navigationToEdit(taskId)
@@ -21,7 +20,7 @@ class TodoListPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {view?.showTaskRemoved(task)}
-            .also { disposable.add(disposable) }
+            .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     override fun toggleFavorite(task: Task) {
@@ -29,7 +28,7 @@ class TodoListPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { view?.showIsFavoriteUpdate(task) }
-            .also { disposable.add(disposable) }
+            .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     override fun onTaskClicked(task: Task) {
@@ -37,7 +36,7 @@ class TodoListPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { view?.showTaskUpDate(task) }
-            .also { disposable.add(disposable) }
+            .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     override fun onAddTaskButtonClicked() {
@@ -55,7 +54,7 @@ class TodoListPresenter(
                     view?.returnTasks(tasks)
                 }
             }
-            .also { disposable.add(disposable) }
+            .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     override fun onDestroyView() {

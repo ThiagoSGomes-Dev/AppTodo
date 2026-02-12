@@ -18,7 +18,7 @@ class TodoEditTaskPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { task -> view?.showBindTask(task = task) }
-            .also { disposable.add(disposable) }
+            .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     override fun upDateTask(newTask: Task) {
@@ -26,9 +26,9 @@ class TodoEditTaskPresenter(
            .subscribeOn(Schedulers.io())
            .observeOn(AndroidSchedulers.mainThread())
            .subscribe {
-               view?.closeFragment(newTask)
+               // view?.closeFragment()
            }
-           .also { disposable.add(disposable) }
+           .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     fun onDestroyView() {

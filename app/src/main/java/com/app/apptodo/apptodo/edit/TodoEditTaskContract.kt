@@ -6,7 +6,7 @@ interface TodoEditTaskContract {
     interface View {
         fun onTaskUpDated(task: Task)
         fun showBindTask(task: Task)
-        fun closeFragment(upDateTask: Task)
+        fun closeFragment()
     }
     interface Presenter {
         fun loadTask(id: Int)
