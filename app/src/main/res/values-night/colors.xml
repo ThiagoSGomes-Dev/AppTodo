@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF000000</color>
+    <color name="myIcon">#FFFFFF</color>
+    <color name="myFab">#7A90C9</color>
+    <color name="homeBack">#141519</color>
+    <color name="cardBack">#0C0D11</color>
+    <color name="colorDivider">#2C2D32</color>
+    <color name="colorBottomSheet">#1A1B20</color>
+    <color name="colorStar">#6D6E73</color>
+</resources>
+
+ 

@@ -1,6 +1,9 @@
+import com.android.build.gradle.internal.utils.isKspPluginApplied
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -40,8 +43,19 @@ android {
 }
 
 dependencies {
+    implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")
+    implementation(libs.material.icons.core)
+    implementation(libs.material.icons.extended)
 
-    implementation("com.google.code.gson:gson:2.10.1")
+    //RxJava
+    implementation(libs.rxjava3.core)
+    implementation(libs.rxjava3.android)
+
+    //Room
+    implementation(libs.room.rxjava3)
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -52,4 +66,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("io.mockk:mockk:1.14.0")
+    testImplementation(kotlin("test"))
 }

@@ -1,43 +1,38 @@
 package com.app.apptodo
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowInsetsController
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.app.apptodo.apptodo.FragmentInput
-import com.app.apptodo.apptodo.FragmentTask
+import androidx.core.view.WindowInsetsControllerCompat
+import com.app.apptodo.apptodo.addtask.TodoAddTaskFragment
+import com.app.apptodo.apptodo.list.TodoListFragment
+import com.app.apptodo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        fun replaceFragmentTask(fragmentTask: FragmentTask) {
-            supportFragmentManager
-                .beginTransaction().replace(
-                    R.id.fragment_container,
-                    FragmentTask()
-                ).addToBackStack(null).commit()
-        }
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
 
-        fun replaceFragmentInput() {
+        if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction().replace(
+                .beginTransaction().add(
                     R.id.fragment_container,
-                    FragmentInput()
+                    TodoListFragment()
                 ).commit()
         }
-
-        if(savedInstanceState == null) {
-            replaceFragmentTask(fragmentTask = FragmentTask())
-        }
-
     }
 }

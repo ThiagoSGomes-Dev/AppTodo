@@ -1,6 +1,17 @@
 <resources>
-    <string name="app_name">AppTodo</string>
-    <string name="add_button">Add</string>
-    <string name="input_hint">Task</string>
+    <string name="app_name">Tarefas</string>
+    <string name="add_button">Save</string>
+    <string name="input_hint">Nova tarefa</string>
     <string name="task_textview">Crei uma tarefa</string>
+    <string name="bot_o_de_conclus_o_de_atividade">botão de conclusão de atividade</string>
+    <string name="tarefas">Tarefas</string>
+    <string name="bot_o_para_adicionar_tarefas">botão para adicionar tarefas</string>
+    <string name="plus">+</string>
+    <string name="icone_de_favoritos">Icone de favoritos</string>
+    <string name="adicionar_detalhes">Adicionar detalhes</string>
+    <string name="icone_do_bot_o_de_descri_o">Icone do botão de descrição</string>
+    <string name="marcar_como_conclu_do">Marcar como concluído</string>
+    <string name="nao_ha_tarefas_ainda">Não há tarefas ainda</string>
+    <string name="adicione_tarefas">Adicione suas tarefas e\n acompanhe-as em todo o Google\n Workspace</string>
+    <string name="imagem_da_lista_vazia">Imagem da lista vazia</string>
 </resources>
