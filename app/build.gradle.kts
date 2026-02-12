@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+    implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")
     implementation(libs.material.icons.core)
     implementation(libs.material.icons.extended)
 
@@ -65,4 +66,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("io.mockk:mockk:1.14.0")
+    testImplementation(kotlin("test"))
 }
