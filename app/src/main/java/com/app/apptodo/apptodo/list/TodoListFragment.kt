@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.apptodo.R
@@ -12,10 +11,14 @@ import com.app.apptodo.apptodo.addtask.TodoAddTaskFragment
 import com.app.apptodo.apptodo.edit.TodoEditTaskFragment
 import com.app.apptodo.data.Task
 import com.app.apptodo.databinding.FragmentTaskBinding
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class TodoListFragment: Fragment(), TodoListContract.View {
+
+    private val disposable = CompositeDisposable()
+
     private val presenter: TodoListPresenter by lazy {
-        TodoListPresenter(this, ListRepositoryImplementation())
+        TodoListPresenter(this, ListRepositoryImplementation(), disposable)
     }
     private lateinit var adapter: TodoListAdapter
     private var _binding: FragmentTaskBinding? = null
