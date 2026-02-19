@@ -2,7 +2,6 @@ package com.app.apptodo.apptodo.edit
 
 import com.app.apptodo.data.Task
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.CompletableObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
@@ -21,14 +20,24 @@ class TodoEditTaskPresenter(
             .also { newDisposable -> disposable.add(newDisposable) }
     }
 
-    override fun upDateTask(newTask: Task) {
+    override fun upDateTaskArrow(newTask: Task) {
        repository.saveTask(newTask)
            .subscribeOn(Schedulers.io())
            .observeOn(AndroidSchedulers.mainThread())
            .subscribe {
-               // view?.closeFragment()
+               view?.closeFragment()
            }
            .also { newDisposable -> disposable.add(newDisposable) }
+    }
+
+    override fun upDateTaskBack(newTask: Task) {
+        repository.saveTask(newTask)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.bindObserveTextChanges(newTask)
+            }
+            .also { newDisposable -> disposable.add(newDisposable) }
     }
 
     fun onDestroyView() {

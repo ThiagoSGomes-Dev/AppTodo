@@ -1,19 +1,17 @@
 package com.app.apptodo.apptodo.edit
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.app.apptodo.data.Task
 import com.app.apptodo.databinding.FragmentEditBinding
-import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.doOnTextChanged
 import com.jakewharton.rxbinding4.widget.textChanges
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Observable.combineLatest
 import java.util.concurrent.TimeUnit
 
 class TodoEditTaskFragment: Fragment(), TodoEditTaskContract.View {
@@ -57,24 +55,23 @@ class TodoEditTaskFragment: Fragment(), TodoEditTaskContract.View {
             textInputEditText.setText(task.name)
             textInputEditTextDesc.setText(task.description)
 
-            observeTextChanges(task)
+            bindObserveTextChanges(task)
             btnBackUpDate.setOnClickListener {
-                // saveTask(task)
+                saveTask(task)
                 val updateTask = task.copy(
                     name = textInputEditText.text.toString(),
                     description = textInputEditTextDesc.text.toString()
                 )
-                // presenter.upDateTask(updateTask)
+                presenter.upDateTaskArrow(updateTask)
             }
         }
     }
 
-    private fun observeTextChanges(task: Task) {
+    override fun bindObserveTextChanges(task: Task) {
         val nameChanges = binding.textInputEditText.textChanges()
         val descChanges = binding.textInputEditTextDesc.textChanges()
 
-        Observable
-            .combineLatest(nameChanges, descChanges) { name, desc ->
+        combineLatest(nameChanges, descChanges) { name, desc ->
                 task.copy(
                     name = name.toString(),
                     description = desc.toString()
@@ -85,7 +82,7 @@ class TodoEditTaskFragment: Fragment(), TodoEditTaskContract.View {
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { updatedTask ->
-                presenter.upDateTask(updatedTask)
+                presenter.upDateTaskBack(updatedTask)
             }
     }
 
@@ -94,7 +91,7 @@ class TodoEditTaskFragment: Fragment(), TodoEditTaskContract.View {
             name = binding.textInputEditText.text.toString(),
             description = binding.textInputEditTextDesc.text.toString()
         )
-        presenter.upDateTask(updateTask)
+        presenter.upDateTaskBack(updateTask)
     }
 
     private fun registerBackPressed(task: Task) {

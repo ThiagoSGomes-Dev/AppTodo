@@ -7,9 +7,11 @@ interface TodoEditTaskContract {
         fun onTaskUpDated(task: Task)
         fun showBindTask(task: Task)
         fun closeFragment()
+        fun bindObserveTextChanges(task: Task)
     }
     interface Presenter {
         fun loadTask(id: Int)
-        fun upDateTask(newTask: Task)
+        fun upDateTaskArrow(newTask: Task)
+        fun upDateTaskBack(newTask: Task)
     }
 }
