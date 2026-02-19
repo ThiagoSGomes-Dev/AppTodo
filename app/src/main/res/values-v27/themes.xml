@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AppTodo" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowBackground">@color/homeBack</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorPrimary">@color/myFab</item>
+        <item name="colorSurface">@color/cardBack</item>
+    </style>
+</resources>

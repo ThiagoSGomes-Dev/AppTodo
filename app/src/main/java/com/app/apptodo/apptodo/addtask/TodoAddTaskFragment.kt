@@ -1,23 +1,19 @@
 package com.app.apptodo.apptodo.addtask
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.app.apptodo.data.Task
-import com.app.apptodo.data.AppTodoRepositoryImplementation
-import com.app.apptodo.apptodo.list.TodoListAdapter
 import com.app.apptodo.databinding.FragmentInputBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import androidx.core.view.isGone
 
-class TodoAddTaskFragment: Fragment(), TodoAddTaskContract.View {
+class TodoAddTaskFragment: BottomSheetDialogFragment(), TodoAddTaskContract.View {
 
     private val presenter: TodoAddTaskContract.Presenter by lazy {
-        TodoAddTaskPresenter(this, AppTodoRepositoryImplementation())
+        TodoAddTaskPresenter(this, AddTaskRepositoryImplementation())
     }
-    private lateinit var adapter : TodoListAdapter
     private var _binding : FragmentInputBinding? = null
     private val binding get() = _binding!!
 
@@ -38,32 +34,32 @@ class TodoAddTaskFragment: Fragment(), TodoAddTaskContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = TodoListAdapter()
-
         with (binding) {
+
             btnButton.setOnClickListener {
                 val title = inputText.text.toString()
-                val task = Task(name = title)
-                presenter.onAddTaskClicked(task)
+                val description = inputTextDescription.text.toString().ifBlank { null }
+                val isFavorite = rbIsFavoriteBottomSheet.isChecked
 
-                Log.d("Click", "${task.id}, ${task.name}")
-                Toast.makeText(context,"Task created!", Toast.LENGTH_SHORT).show()
+                val task = Task(name = title, description = description, isFavorite = isFavorite)
+                dismiss()
+                presenter.onAddTaskClicked(task, description, isFavorite)
             }
+
+            btnDescription.setOnClickListener {
+                if (inputLayoutDescription.isGone) {
+                    inputLayoutDescription.visibility = View.VISIBLE
+                } else {
+                    inputLayoutDescription.visibility = View.GONE
+                }
+            }
+
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-
         _binding = null
-    }
-
-    override fun navigateToListFragment() {
-        parentFragmentManager.popBackStack()
-    }
-
-    override fun showAddTask(task: Task) {
-        adapter.addTask(task)
+        presenter.onDestroyView()
     }
 }

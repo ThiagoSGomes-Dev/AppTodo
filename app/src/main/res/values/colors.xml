@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="myIcon">#FFFFFF</color>
+    <color name="myFab">#5E73AA</color>
+    <color name="homeBack">#EEEDF3</color>
+    <color name="cardBack">#F6F8FE</color>
+    <color name="colorDivider">#E2E1E7</color>
+    <color name="colorBottomSheet">#F4F3F9</color>
+    <color name="colorStar">#44444C</color>
 </resources>

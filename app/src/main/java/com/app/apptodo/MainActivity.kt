@@ -1,10 +1,13 @@
 package com.app.apptodo
 
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowInsetsController
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.app.apptodo.apptodo.addtask.TodoAddTaskFragment
 import com.app.apptodo.apptodo.list.TodoListFragment
 import com.app.apptodo.databinding.ActivityMainBinding
@@ -17,18 +20,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
 
         if (savedInstanceState == null) {
             supportFragmentManager
-                .beginTransaction().replace(
+                .beginTransaction().add(
                     R.id.fragment_container,
                     TodoListFragment()
-                ).addToBackStack(null).commit()
+                ).commit()
         }
     }
 }

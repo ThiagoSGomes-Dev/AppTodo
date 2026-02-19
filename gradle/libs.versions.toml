@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.0"
+agp = "8.11.1"
 kotlin = "2.0.21"
 coreKtx = "1.17.0"
 junit = "4.13.2"
@@ -11,8 +11,11 @@ activity = "1.11.0"
 constraintlayout = "2.2.1"
 recyclerview = "1.4.0"
 fragment = "1.8.9"
-room = "2.6.1"
-ksp = "2.0.21-1.0.28"
+room = "2.8.3"
+ksp = "2.0.21-1.0.27"
+rxjava = "3.1.5"
+rxandroid = "3.0.2"
+iconsCore = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,9 +30,18 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-rxjava3 = { group= "androidx.room", name = "room-rxjava3", version.ref = "room" }
+rxjava3-core = { group = "io.reactivex.rxjava3", name = "rxjava", version.ref = "rxjava" }
+rxjava3-android = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
+material-icons-core = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "iconsCore" }
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "iconsCore" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+rx-essentials = ["rxjava3-core", "rxjava3-android"]
 
