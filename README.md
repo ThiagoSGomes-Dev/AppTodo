@@ -57,4 +57,4 @@ Navegação via Single Activity + múltiplos Fragments
 
 ## Objetivo
 
- Este app foi desenvolvido com foco educacional, como maneira de consolidar conceitos importantes e estruturar um fluxo real de criação e gerenciamento de tarefas utilizando boas práticas.
+ Este app foi desenvolvido com foco educacional, como maneira de consolidar conceitos importantes e estruturar um fluxo real de criação e gerenciamento de tarefas utilizando boas práticas. aplicando boas práticas de desenvolvimento.
